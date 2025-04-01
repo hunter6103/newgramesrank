@@ -1,0 +1,40 @@
+<!-- 头部组件 -->
+<header>
+    <img src="/logo.png" alt="网站LOGO">
+    <h1>小游戏网站</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/" id="nav-home">首页</a></li>
+        <li><a href="/#games" id="nav-games">游戏</a></li>
+        <li><a href="/#popular" id="nav-popular">热门</a></li>
+        <li><a href="/#contact" id="nav-contact">联系我们</a></li>
+    </ul>
+</nav>
+
+<script>
+// 根据当前页面设置活动导航项
+document.addEventListener('DOMContentLoaded', function() {
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    
+    // 移除所有活动类
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    
+    if (path === '/' || path === '/index.html') {
+        document.getElementById('nav-home').classList.add('active');
+    } else if (path.includes('/games/')) {
+        document.getElementById('nav-games').classList.add('active');
+    }
+    
+    // 如果有hash，设置对应的导航项为活动状态
+    if (hash) {
+        const navId = 'nav-' + hash.substring(1);
+        const navItem = document.getElementById(navId);
+        if (navItem) {
+            navItem.classList.add('active');
+        }
+    }
+});
+</script> 

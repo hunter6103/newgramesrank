@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Monster Truck Racing - The ultimate 2D off-road challenge with giant jumps, brutal obstacle courses, and realistic physics. Master mid-air control, perform gravity-defying stunts, and compete against ruthless AI opponents in this action-packed monster truck game!">
+    <meta name="keywords" content="monster truck racing, off-road truck game, physics racing game, stunt truck game, 2D racing challenge, mid-air truck control, obstacle course racing, monster truck stunts">
+    <title>Monster Truck Racing | Ultimate 2D Off-Road Challenge | Top Racing Games 2025</title>
+    <link rel="stylesheet" href="/public/css/common.css?v=1.0.5">   
+    <!-- 添加Orbitron字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap">
+    <!-- 添加Eurostile字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/eurostile" >
+    <!-- 添加DS-Digital字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/ds-digital" >
+    <!-- 添加Digital-7字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/digital-7" >  
+    <style>     
+
+        .game-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 657px;          
+            border-radius: 10px;
+            background: rgba(5, 5, 15, 0.9); /* Darker background */
+            backdrop-filter: blur(5px);          
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);  
+            margin-bottom: 2rem;
+        }
+
+        .game-info {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .game-info h1 {
+            color: #00f3ff;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding: 0.3em 0;
+        }
+        
+        .game-info h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.3), rgba(0, 243, 255, 0.9) 50%, rgba(0, 243, 255, 0.3) 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info h2, .game-info h3 {
+            color: #00f3ff;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+            font-family: 'Eurostile', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info p, .game-info li {
+            color: #ffffff;
+            line-height: 1.8;
+        }
+
+        .game-controls {
+          
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .game-controls ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .game-controls li {
+            margin: 0.5rem 0;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: rgba(0, 26, 51, 0.8);
+            color: #00f3ff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            position: relative;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
+            overflow: hidden;
+        }
+
+        .back-to-home:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 38, 77, 0.9);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5), inset 0 0 15px rgba(0, 243, 255, 0.4);
+            border-color: rgba(0, 243, 255, 0.8);
+        }
+        
+        .back-to-home:hover:before {
+            left: 100%;
+        }
+       
+        .share-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 0;
+            padding: 0 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .share-btn.facebook {
+            background-color: #1877f2;
+        }
+
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .share-btn.linkedin {
+            background-color: #0077b5;
+        }
+
+        .share-btn.pinterest {
+            background-color: #e60023;
+        }
+
+        .share-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-component">
+        <header>
+            <div class="logo-container">                
+                <div class="logo-glow"></div>
+                <h1 class="site-title">GameRank</h1>
+                <div class="subtitle">Best Racing Games</div>
+            </div>
+            <div class="menu-overlay"></div>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" id="nav-home" class="active menu-item">Home</a></li>
+                    <li><a href="#Controls" id="nav-popular" class="menu-item">Controls</a></li>
+                    <li><a href="#Features" id="nav-contact" class="menu-item">Features</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="game-container">
+
+        <iframe id="game" src="https://www.onlinegames.io/games/2021/1/monster-truck-racing/index.html" class="game-iframe" allowfullscreen></iframe>
+        
+        <div class="share-container">
+            <div class="share-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.playgamestop.com/games/monster-truck-racing.html" target="_blank" class="share-btn facebook" title="Share on Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https://www.playgamestop.com/games/monster-truck-racing.html&text=Check out Monster Truck Racing - The ultimate 2D off-road challenge with insane jumps and physics-based comedy!" target="_blank" class="share-btn twitter" title="Share on Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.playgamestop.com/games/monster-truck-racing.html&title=Monster Truck Racing - The Ultimate 2D Off-Road Challenge" target="_blank" class="share-btn linkedin" title="Share on LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 0 1-1.548-1.549 1.548 1.548 0 1 1 1.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=https://www.playgamestop.com/games/monster-truck-racing.html&media=https://www.playgamestop.com/images/Monster-Truck-Racing.jpg&description=Monster Truck Racing - Full-throttle off-road chaos with insane jumps, brutal obstacle courses and physics-based hilarity!" target="_blank" class="share-btn pinterest" title="Share on Pinterest">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 0a12 12 0 0 0-3.8 23.1c-.1-1-.2-2.5.1-3.6.2-.8 1.3-5.2 1.3-5.2s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.8 0 1.2.6 1.2 1.4 0 .8-.5 2-1 3.1-.4 1.6.8 2.9 2.3 2.9 2.8 0 4.9-3 4.9-7.3 0-3.9-2.8-6.6-6.8-6.6-4.6 0-7.3 3.5-7.3 7.3 0 1.4.5 3 1.5 4 .2.2.2.3.1.6-.1.2-.3.8-.4 1-.1.4-.2.5-.4.4-1.6-.7-2.6-3-2.6-4.8 0-3.7 2.7-7.1 7.8-7.1 4.1 0 6.8 2.9 6.8 6.8 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.8-1.3 0 0-.6 2.3-.7 2.9-.3 1.1-1 2.5-1.5 3.4A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-6.6-5.4-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <h1>Monster Truck Racing</h1>
+            <div class="game-description">
+                <h2>Monster Truck Madness: The Ultimate 2D Off-Road Challenge!</h2>
+
+                <p><em>"Buckle up, gearheads!"</em> If you're craving pure, unadulterated off-road chaos, <strong>Monster Truck Racing</strong> is about to become your new obsession. This isn't your grandma's Sunday drive - it's a <strong>full-throttle, mud-flinging, suspension-breaking</strong> spectacle that'll test your skills and tickle your funny bone with every outrageous flip and crash!</p>
+                
+                <h3>Why This Game Will Get Your Adrenaline Pumping</h3>
+                <ul>
+                    <li><strong>Giant Wheels, Even Bigger Air:</strong> These mechanical beasts were born for <strong>insane jumps and gravity-defying stunts</strong></li>
+                    <li><strong>Brutal Obstacle Courses:</strong> From <strong>precipitous mountain passes</strong> to <strong>explosive minefields</strong>, every track is designed to wreck the weak</li>
+                    <li><strong>Physics-Based Hilarity:</strong> Watch in slow-motion glory as your truck <strong>cartwheels, barrel rolls, or gets stuck upside-down</strong></li>
+                    <li><strong>Single-Player Mayhem:</strong> Compete against <strong>ruthless AI opponents</strong> who'll stop at nothing to steal your glory</li>
+                </ul>
+                
+                <p><strong>Pro Tip:</strong> Master the art of <strong>mid-air control</strong> - the difference between a gold medal and a spectacular faceplant comes down to split-second adjustments!</p>
+                
+                <h3>Gameplay That Keeps You Coming Back</h3>
+                <ul>
+                    <li><strong>Easy to Learn, Tough to Master:</strong> Simple controls hide <strong>deep, skill-based mechanics</strong></li>
+                    <li><strong>Satisfying Progression:</strong> Unlock <strong>new trucks and tracks</strong> as you dominate each challenge</li>
+                    <li><strong>"Just One More Try" Factor:</strong> Short, intense races make it perfect for quick sessions (that somehow turn into 3-hour marathons)</li>
+                </ul>
+                
+                <h3>Controls Breakdown:</h3>
+                <ul>
+                    <li>🔥 <strong>Accelerate:</strong> Right Arrow/Gas Pedal (Floor it!)</li>
+                    <li>🛑 <strong>Brake/Reverse:</strong> Left Arrow (For those "oh crap" moments)</li>
+                    <li>🚀 <strong>Jump:</strong> Up Arrow (Get some air!)</li>
+                    <li>⚖️ <strong>Balance:</strong> Down Arrow (Stick those landings)</li>
+                </ul>
+                
+                <p><strong>The Verdict:</strong> With its perfect blend of <strong>white-knuckle racing</strong> and <strong>physics-based comedy</strong>, this game is a must-play for fans of <em>Hill Climb Racing</em> or <em>Trials HD</em>. It's the kind of game where <strong>your most spectacular failures are just as fun as your victories</strong>!</p>
+                
+                <p><strong>Ready to crush the competition? Download now and let us know how many flips you can pull off in one race!</strong> 🚛💥</p>
+            </div>
+
+            <h2 id="Features">Game Features</h2>
+            <ul>
+                <li><strong>Gravity-Defying Stunts</strong> - Perform insane jumps and mid-air tricks</li>
+                <li><strong>Challenging Obstacle Courses</strong> - Navigate mountain passes and hazardous terrain</li>
+                <li><strong>Realistic Physics System</strong> - Experience authentic vehicle handling and crashes</li>
+                <li><strong>AI Opponents</strong> - Compete against challenging computer racers</li>
+                <li><strong>Progression System</strong> - Unlock new trucks and tracks as you win races</li>
+                <li><strong>Mid-Air Controls</strong> - Master airborne adjustments for perfect landings</li>
+                <li><strong>Slow-Motion Effects</strong> - Watch spectacular crashes in cinematic detail</li>
+                <li><strong>Quick Race Format</strong> - Perfect for short gaming sessions</li>
+            </ul>
+
+            <h2>How to Play</h2>
+            <div class="game-controls" id="Controls">
+                <h3>Controls:</h3>
+                <ul>
+                    <li>Right Arrow: Accelerate</li>
+                    <li>Left Arrow: Brake/Reverse</li>
+                    <li>Up Arrow: Jump</li>
+                    <li>Down Arrow: Adjust Balance</li>
+                </ul>
+            </div>
+
+            <h2>Game Objectives</h2>
+            <p>Race your monster truck through challenging obstacle courses while performing gravity-defying stunts. Compete against ruthless AI opponents and aim for victory in each race. Master the physics-based mechanics to pull off impressive jumps and flips while maintaining control. Progress through the game by unlocking new trucks and tracks as you dominate each challenge.</p>
+
+            <h2>Game Tips</h2>
+            <ul>
+                <li>Perfect your mid-air control for both spectacular stunts and safe landings</li>
+                <li>Use the balance controls to prevent your truck from flipping over</li>
+                <li>Practice timing your jumps to maximize distance and height</li>
+                <li>Learn each track's layout to anticipate upcoming obstacles</li>
+                <li>Sometimes a controlled crash is better than trying to save an impossible landing</li>
+                <li>Unlock stronger trucks to handle more challenging tracks</li>
+                <li>For especially difficult jumps, maintain a steady speed rather than going full throttle</li>
+                <li>Try to complete Track 5 without flipping for an extra challenge</li>
+            </ul>
+
+            <a href="../index.html" class="back-to-home">« Return to Main Hub</a>
+        </div>
+    </div>
+</body>
+<a href="#" id="go-top" class="go-top-btn" title="Back to Top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z" fill="currentColor"/>
+    </svg>
+</a>
+<script language="javascript" type="text/javascript" src="/public/js/menu.js?v=1.0.1"></script>
+<script>
+    function resizeGameFrame() {
+        const gameFrame = document.getElementById('game');
+        if (gameFrame) {
+            // 设置高度为宽度的 1/2.2
+            const width = gameFrame.offsetWidth;
+            const height = width / 1.75;
+            gameFrame.style.height = height + 'px';
+        }
+    }
+
+    // 初始加载和窗口大小变化时调整尺寸
+    window.addEventListener('load', resizeGameFrame);
+    window.addEventListener('resize', resizeGameFrame);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const goTopBtn = document.getElementById('go-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                goTopBtn.classList.add('visible');
+            } else {
+                goTopBtn.classList.remove('visible');
+            }
+        });
+        
+        goTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</html> 

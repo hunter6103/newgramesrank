@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<%= game.name %> - 小游戏网站">
+    <meta name="keywords" content="HTML5, 小游戏, <%= game.name %>">
+    <title><%= game.name %> - 小游戏网站</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="game-detail">
+        <h2><%= game.name %></h2>
+        <div class="game-container">
+            <iframe src="游戏URL" frameborder="0" allowfullscreen></iframe>
+        </div>
+        
+        <section class="game-info">
+            <h3>游戏说明</h3>
+            <p>游戏描述内容...</p>
+            
+            <h3>操作方法</h3>
+            <ul>
+                <li>方向键：控制移动</li>
+                <li>空格键：跳跃/加速</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 小游戏网站. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

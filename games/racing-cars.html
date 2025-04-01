@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Racing Cars - Experience the ultimate 2D speed showdown with chaotic, physics-defying roads and intense competition. Master precision steering, overtake skilled AI opponents, and climb the leaderboards in this adrenaline-fueled racing game!">
+    <meta name="keywords" content="racing cars game, 2D racing game, physics racing game, obstacle racing, competitive racing game, speed showdown, racing leaderboards, skill-based racing">
+    <title>Racing Cars | The Ultimate 2D Speed Showdown Racing Game</title>
+    <link rel="stylesheet" href="/public/css/common.css?v=1.0.5">   
+    <!-- 添加Orbitron字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap">
+    <!-- 添加Eurostile字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/eurostile" >
+    <!-- 添加DS-Digital字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/ds-digital" >
+    <!-- 添加Digital-7字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/digital-7" >  
+    <style>     
+
+        .game-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 657px;          
+            border-radius: 10px;
+            background: rgba(5, 5, 15, 0.9); /* Darker background */
+            backdrop-filter: blur(5px);          
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);  
+            margin-bottom: 2rem;
+        }
+
+        .game-info {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .game-info h1 {
+            color: #00f3ff;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding: 0.3em 0;
+        }
+        
+        .game-info h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.3), rgba(0, 243, 255, 0.9) 50%, rgba(0, 243, 255, 0.3) 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info h2, .game-info h3 {
+            color: #00f3ff;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+            font-family: 'Eurostile', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info p, .game-info li {
+            color: #ffffff;
+            line-height: 1.8;
+        }
+
+        .game-controls {            
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .game-controls ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .game-controls li {
+            margin: 0.5rem 0;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: rgba(0, 26, 51, 0.8);
+            color: #00f3ff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            position: relative;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
+            overflow: hidden;
+        }
+
+        .back-to-home:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 38, 77, 0.9);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5), inset 0 0 15px rgba(0, 243, 255, 0.4);
+            border-color: rgba(0, 243, 255, 0.8);
+        }
+        
+        .back-to-home:hover:before {
+            left: 100%;
+        }
+       
+        .share-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 0;
+            padding: 0 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .share-btn.facebook {
+            background-color: #1877f2;
+        }
+
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .share-btn.linkedin {
+            background-color: #0077b5;
+        }
+
+        .share-btn.pinterest {
+            background-color: #e60023;
+        }
+
+        .share-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-component">
+        <header>
+            <div class="logo-container">                
+                <div class="logo-glow"></div>
+                <h1 class="site-title">GameRank</h1>
+                <div class="subtitle">Best Racing Games</div>
+            </div>
+            <div class="menu-overlay"></div>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" id="nav-home" class="active menu-item">Home</a></li>
+                    <li><a href="#Controls" id="nav-popular" class="menu-item">Controls</a></li>
+                    <li><a href="#Features" id="nav-contact" class="menu-item">Features</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="game-container">
+
+        <iframe id="game" src="https://www.onlinegames.io/games/2021/1/racing-cars/index.html" class="game-iframe" allowfullscreen></iframe>
+        
+        <div class="share-container">
+            <div class="share-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.playgamestop.com/games/racing-cars.html" target="_blank" class="share-btn facebook" title="Share on Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https://www.playgamestop.com/games/racing-cars.html&text=Check out Racing Cars - The ultimate 2D speed showdown with chaotic tracks and intense competition!" target="_blank" class="share-btn twitter" title="Share on Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.playgamestop.com/games/racing-cars.html&title=Racing Cars - The Ultimate 2D Speed Showdown" target="_blank" class="share-btn linkedin" title="Share on LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 0 1-1.548-1.549 1.548 1.548 0 1 1 1.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=https://www.playgamestop.com/games/racing-cars.html&media=https://www.playgamestop.com/images/Racing-Cars-xs.jpg&description=Racing Cars - A high-speed, obstacle-dodging battle where only the sharpest drivers will win!" target="_blank" class="share-btn pinterest" title="Share on Pinterest">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 0a12 12 0 0 0-3.8 23.1c-.1-1-.2-2.5.1-3.6.2-.8 1.3-5.2 1.3-5.2s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.8 0 1.2.6 1.2 1.4 0 .8-.5 2-1 3.1-.4 1.6.8 2.9 2.3 2.9 2.8 0 4.9-3 4.9-7.3 0-3.9-2.8-6.6-6.8-6.6-4.6 0-7.3 3.5-7.3 7.3 0 1.4.5 3 1.5 4 .2.2.2.3.1.6-.1.2-.3.8-.4 1-.1.4-.2.5-.4.4-1.6-.7-2.6-3-2.6-4.8 0-3.7 2.7-7.1 7.8-7.1 4.1 0 6.8 2.9 6.8 6.8 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.8-1.3 0 0-.6 2.3-.7 2.9-.3 1.1-1 2.5-1.5 3.4A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-6.6-5.4-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <h1>Racing Cars</h1>
+            <div class="game-description">
+                <h2>Racing Cars: The Ultimate 2D Speed Showdown!</h2>
+
+                <p><em>"Start your engines and hold on tight—</em>because <strong>Racing Cars</strong> is about to take you on a wild, wheel-spinning joyride! This isn't just another casual racer; it's a <strong>high-speed, obstacle-dodging, edge-of-your-seat battle</strong> where only the sharpest drivers will cross the finish line first.</p>
+                
+                <h3>Why This Game is a Must-Play</h3>
+                <ul>
+                    <li><strong>Thrilling, Bumpy Tracks:</strong> Forget smooth asphalt—you'll be racing on <strong>chaotic, physics-defying roads</strong> packed with brutal bumps, sudden drops, and sneaky obstacles. One wrong move, and you'll watch your rivals zoom past!</li>
+                    <li><strong>Danger at Every Turn:</strong> Watch out for <strong>crates, ramps, and traps</strong> designed to slow you down. The track is your enemy as much as the competition!</li>
+                    <li><strong>Pro Racers vs. You:</strong> Go head-to-head against <strong>skilled AI opponents</strong> who don't just drive—they fight for every inch of the track. Overtake, outmaneuver, or outlast them to claim victory.</li>
+                    <li><strong>Master the Art of Control:</strong> Precision steering isn't just helpful—it's essential. The difference between <strong>champion and crash dummy</strong> comes down to how well you handle speed, momentum, and sudden surprises.</li>
+                </ul>
+                
+                <h3>What Keeps You Hooked?</h3>
+                <ul>
+                    <li><strong>Short Races, Endless Replays:</strong> Quick, intense races make it perfect for <strong>on-the-go gaming</strong>, but with ever-changing track dynamics, no two runs feel the same.</li>
+                    <li><strong>Addictive Competition:</strong> Climb the <strong>leaderboards</strong>, unlock faster cars, and perfect your racing lines to dominate the competition.</li>
+                    <li><strong>Pure, Adrenaline-Fueled Fun:</strong> Whether you're a casual player or a speed demon, <em>Racing Cars</em> delivers <strong>instant gratification with every finish line</strong>.</li>
+                </ul>
+                
+                <p><strong>Final Lap Verdict:</strong> If you love <strong>fast-paced, skill-based racers</strong> like <em>Hill Climb Racing</em> or <em>Turbo Dismount</em>, but crave <strong>more intensity and competition</strong>, <em>Racing Cars</em> is your next obsession. Simple to pick up, tough to master—<strong>how long can you stay in first place?</strong></p>
+                
+                <p><strong>Download now and leave your rivals in the dust!</strong> 🏁💨</p>
+            </div>
+
+            <h2 id="Features">Game Features</h2>
+            <ul>
+                <li><strong>Physics-Defying Tracks:</strong> Race on chaotic roads with bumps, drops, and obstacles</li>
+                <li><strong>Challenging Obstacles:</strong> Navigate through crates, ramps, and traps</li>
+                <li><strong>AI Opponents:</strong> Compete against skilled virtual racers</li>
+                <li><strong>Precision Controls:</strong> Master speed, momentum, and steering</li>
+                <li><strong>Leaderboards:</strong> Compete for top positions against other players</li>
+                <li><strong>Unlockable Cars:</strong> Gain access to faster vehicles</li>
+                <li><strong>Dynamic Track Elements:</strong> Experience unique racing conditions each time</li>
+            </ul>
+
+            <h2>How to Play</h2>
+            <div class="game-controls" id="Controls">
+                <h3>Controls:</h3>
+                <ul>
+                    <li>Up Arrow: Accelerate</li>
+                    <li>Down Arrow: Brake/Reverse</li>
+                    <li>Left/Right Arrows: Adjust vehicle balance</li>
+                    <li>Spacebar: Special ability (if available)</li>
+                </ul>
+            </div>
+
+            <h2>Game Objectives</h2>
+            <p>Race against skilled AI opponents on challenging tracks filled with obstacles. Cross the finish line first by mastering precision steering and maintaining control at high speeds. Climb the leaderboards, unlock faster cars, and perfect your racing lines to become the champion.</p>
+
+            <h2>Game Tips</h2>
+            <ul>
+                <li>Anticipate bumps and obstacles to avoid losing control</li>
+                <li>Find the optimal racing line to maintain your speed through corners</li>
+                <li>Use ramps strategically to gain an advantage over opponents</li>
+                <li>Master the balance between speed and control - going too fast may cause you to crash</li>
+                <li>Watch your rivals' movements to plan overtaking maneuvers</li>
+                <li>Learn the track layouts to prepare for upcoming hazards</li>
+                <li>Practice handling sudden surprises to improve your reaction time</li>
+            </ul>
+
+            <a href="../index.html" class="back-to-home">« Return to Main Hub</a>
+        </div>
+    </div>
+</body>
+<a href="#" id="go-top" class="go-top-btn" title="Back to Top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z" fill="currentColor"/>
+    </svg>
+</a>
+<script language="javascript" type="text/javascript" src="/public/js/menu.js?v=1.0.1"></script>
+<script>
+    function resizeGameFrame() {
+        const gameFrame = document.getElementById('game');
+        if (gameFrame) {
+            // 设置高度为宽度的 1/2.2
+            const width = gameFrame.offsetWidth;
+            const height = width / 1.75;
+            gameFrame.style.height = height + 'px';
+        }
+    }
+
+    // 初始加载和窗口大小变化时调整尺寸
+    window.addEventListener('load', resizeGameFrame);
+    window.addEventListener('resize', resizeGameFrame);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const goTopBtn = document.getElementById('go-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                goTopBtn.classList.add('visible');
+            } else {
+                goTopBtn.classList.remove('visible');
+            }
+        });
+        
+        goTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</html> 

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Tank Racing - Master the art of drifting armored vehicles across military-grade obstacle courses with realistic physics. Collect coins, unlock elite tanks, and discover hidden shortcuts in this hardcore 2D off-road showdown!">
+    <meta name="keywords" content="tank racing game, armored vehicle game, 2D racing game, military obstacle course game, physics-based tank game, coin collection game, tank customization, hardcore racing game, off-road tank game">
+    <title>Tank Racing | Hardcore 2D Armored Off-Road Obstacle Racing Game</title>
+    <link rel="stylesheet" href="/public/css/common.css?v=1.0.5">   
+    <!-- 添加Orbitron字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap">
+    <!-- 添加Eurostile字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/eurostile" >
+    <!-- 添加DS-Digital字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/ds-digital" >
+    <!-- 添加Digital-7字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/digital-7" >  
+    <style>     
+
+        .game-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 657px;          
+            border-radius: 10px;
+            background: rgba(5, 5, 15, 0.9); /* Darker background */
+            backdrop-filter: blur(5px);          
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);  
+            margin-bottom: 2rem;
+        }
+
+        .game-info {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .game-info h1 {
+            color: #00f3ff;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding: 0.3em 0;
+        }
+        
+        .game-info h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.3), rgba(0, 243, 255, 0.9) 50%, rgba(0, 243, 255, 0.3) 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info h2, .game-info h3 {
+            color: #00f3ff;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+            font-family: 'Eurostile', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info p, .game-info li {
+            color: #ffffff;
+            line-height: 1.8;
+        }
+
+        .game-controls {           
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .game-controls ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .game-controls li {
+            margin: 0.5rem 0;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: rgba(0, 26, 51, 0.8);
+            color: #00f3ff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            position: relative;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
+            overflow: hidden;
+        }
+
+        .back-to-home:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 38, 77, 0.9);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5), inset 0 0 15px rgba(0, 243, 255, 0.4);
+            border-color: rgba(0, 243, 255, 0.8);
+        }
+        
+        .back-to-home:hover:before {
+            left: 100%;
+        }
+       
+        .share-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 0;
+            padding: 0 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .share-btn.facebook {
+            background-color: #1877f2;
+        }
+
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .share-btn.linkedin {
+            background-color: #0077b5;
+        }
+
+        .share-btn.pinterest {
+            background-color: #e60023;
+        }
+
+        .share-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-component">
+        <header>
+            <div class="logo-container">                
+                <div class="logo-glow"></div>
+                <h1 class="site-title">GameRank</h1>
+                <div class="subtitle">Best Racing Games</div>
+            </div>
+            <div class="menu-overlay"></div>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" id="nav-home" class="active menu-item">Home</a></li>
+                    <li><a href="#Controls" id="nav-popular" class="menu-item">Controls</a></li>
+                    <li><a href="#Features" id="nav-contact" class="menu-item">Features</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="game-container">
+
+        <iframe id="game" src="https://www.onlinegames.io/games/2022/construct/151/tank-racing/index.html" class="game-iframe" allowfullscreen></iframe>
+        
+        <div class="share-container">
+            <div class="share-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.playgamestop.com/games/tank-racing.html" target="_blank" class="share-btn facebook" title="Share on Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https://www.playgamestop.com/games/tank-racing.html&text=Check out Tank Racing - The ultimate armored thrill ride with military-grade obstacle courses!" target="_blank" class="share-btn twitter" title="Share on Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.playgamestop.com/games/tank-racing.html&title=Tank Racing - The Ultimate 2D Armored Racing Game" target="_blank" class="share-btn linkedin" title="Share on LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 0 1-1.548-1.549 1.548 1.548 0 1 1 1.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=https://www.playgamestop.com/games/tank-racing.html&media=https://www.playgamestop.com/images/Tank-Racing-Online-xs.jpg&description=Tank Racing - A hardcore 2D off-road tank racing game with epic obstacles and physics!" target="_blank" class="share-btn pinterest" title="Share on Pinterest">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 0a12 12 0 0 0-3.8 23.1c-.1-1-.2-2.5.1-3.6.2-.8 1.3-5.2 1.3-5.2s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.8 0 1.2.6 1.2 1.4 0 .8-.5 2-1 3.1-.4 1.6.8 2.9 2.3 2.9 2.8 0 4.9-3 4.9-7.3 0-3.9-2.8-6.6-6.8-6.6-4.6 0-7.3 3.5-7.3 7.3 0 1.4.5 3 1.5 4 .2.2.2.3.1.6-.1.2-.3.8-.4 1-.1.4-.2.5-.4.4-1.6-.7-2.6-3-2.6-4.8 0-3.7 2.7-7.1 7.8-7.1 4.1 0 6.8 2.9 6.8 6.8 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.8-1.3 0 0-.6 2.3-.7 2.9-.3 1.1-1 2.5-1.5 3.4A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-6.6-5.4-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <h1>Tank Racing</h1>
+            <div class="game-description">
+                <h2>Tank Racing: The Ultimate 2D Armored Thrill Ride!</h2>
+
+                <p><em>"Lock and load, commanders!"</em> If you're craving a game that blends high-octane tank action with white-knuckle driving challenges, <strong>Tank Racing</strong> is your next obsession. This isn't just another casual driving sim—it's a <strong>hardcore 2D off-road showdown</strong> where your armored beast battles gravity, treacherous terrain, and your own reflexes.</p>
+                
+                <h3>What Makes It Awesome?</h3>
+                <ul>
+                    <li><strong>Brutal Terrain, Bigger Thrills:</strong> Navigate a <strong>military-grade obstacle course</strong> riddled with sudden cliffs, jagged drops, and heart-stopping jumps. One wrong move, and your tank becomes scrap metal.</li>
+                    <li><strong>Coin-Snagging Chaos:</strong> Scattered across the warzone are <strong>shiny coins</strong>—collect them to unlock <strong>elite tanks</strong>, upgrades, or insane cosmetic skins. Pro tip: Riskier paths often hide bigger payouts!</li>
+                    <li><strong>Physics That Bite Back:</strong> Forget arcade floatiness. Here, <strong>weighty tank physics</strong> make every hill climb and mid-air landing a pulse-pounding test of skill. Master momentum, or eat dirt.</li>
+                </ul>
+                
+                <h3>Why You'll Keep Playing</h3>
+                <ul>
+                    <li><strong>"Just One More Run" Syndrome:</strong> Short, intense races = perfect for quick sessions. But with <strong>leaderboards</strong> and hidden shortcuts, you'll chase that flawless run for hours.</li>
+                    <li><strong>Tanks with Attitude:</strong> Unlock a garage of <strong>beefed-up war machines</strong>, from speedy scouts to hulking heavyweights—each handles differently on the battlefield.</li>
+                </ul>
+                
+                <p><strong>Final Verdict:</strong> <em>Tank Racing</em> is a <strong>must-play</strong> for fans of <em>Hill Climb Racing</em> or <em>Bad Piggies</em>—but with way more explosions and armor-piercing attitude. Download it now and prove your dominance on the asphalt… or what's left of it!</p>
+                
+                <p><strong>Ready to roll? Drop a comment with your high score!</strong> 🚀</p>
+            </div>
+
+            <h2 id="Features">Game Features</h2>
+            <ul>
+                <li><strong>Military-Grade Obstacle Courses:</strong> Navigate through challenging terrain with cliffs, drops, and jumps</li>
+                <li><strong>Realistic Tank Physics:</strong> Experience weighty vehicle physics that require skill to master</li>
+                <li><strong>Coin Collection System:</strong> Gather coins throughout levels to unlock new content</li>
+                <li><strong>Unlockable Vehicles:</strong> Access a variety of tanks from speedy scouts to heavy armored vehicles</li>
+                <li><strong>Vehicle Upgrades:</strong> Enhance your tanks with performance improvements</li>
+                <li><strong>Cosmetic Customization:</strong> Apply unique skins to personalize your tanks</li>
+                <li><strong>Leaderboards:</strong> Compete for the best times and highest scores</li>
+                <li><strong>Hidden Shortcuts:</strong> Discover secret paths to gain advantages</li>
+                <li><strong>Quick, Intense Gameplay:</strong> Perfect for short gaming sessions</li>
+            </ul>
+
+            <h2>How to Play</h2>
+            <div class="game-controls" id="Controls">
+                <h3>Controls:</h3>
+                <ul>
+                    <li>Up Arrow / W: Accelerate forward</li>
+                    <li>Down Arrow / S: Brake/Reverse</li>
+                    <li>Left/Right Arrows or A/D: Adjust tank balance and tilt</li>
+                    <li>Spacebar: Jump (if available)</li>
+                    <li>Enter/Return: Pause game</li>
+                </ul>
+            </div>
+
+            <h2>Game Objectives</h2>
+            <p>Navigate your armored tank through challenging military obstacle courses while maintaining balance and collecting coins. Master the physics-based controls to overcome extreme terrain including cliffs, drops, and jumps. Collect coins to unlock new tanks, upgrades, and cosmetic skins. Compete for high scores on leaderboards by finding optimal routes and discovering hidden shortcuts.</p>
+
+            <h2>Game Tips</h2>
+            <ul>
+                <li>Master momentum control to handle steep climbs without flipping your tank</li>
+                <li>Look for risky paths that often hide larger coin rewards</li>
+                <li>Prioritize upgrading your favorite tanks for better performance</li>
+                <li>Practice landings after jumps to avoid becoming "scrap metal"</li>
+                <li>Experiment with different tank types - lighter vehicles handle differently than heavier ones</li>
+                <li>Keep an eye out for hidden shortcuts to improve your time</li>
+                <li>Maintain the right speed when navigating treacherous drops to avoid disaster</li>
+            </ul>
+
+            <a href="../index.html" class="back-to-home">« Return to Main Hub</a>
+        </div>
+    </div>
+</body>
+<a href="#" id="go-top" class="go-top-btn" title="Back to Top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z" fill="currentColor"/>
+    </svg>
+</a>
+<script language="javascript" type="text/javascript" src="/public/js/menu.js?v=1.0.1"></script>
+<script>
+    
+    function resizeGameFrame() {
+        const gameFrame = document.getElementById('game');
+        if (gameFrame) {
+            // 设置高度为宽度的 1/2.2
+            const width = gameFrame.offsetWidth;
+            const height = width / 1.75;
+            gameFrame.style.height = height + 'px';
+        }
+    }
+    // 初始加载和窗口大小变化时调整尺寸
+    window.addEventListener('load', resizeGameFrame);
+    window.addEventListener('resize', resizeGameFrame);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const goTopBtn = document.getElementById('go-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                goTopBtn.classList.add('visible');
+            } else {
+                goTopBtn.classList.remove('visible');
+            }
+        });
+        
+        goTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</html> 

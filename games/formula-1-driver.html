@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Formula 1 Driver - The thrilling 2D side-scrolling racing game with physics-based controls and upgrade system. Master the perfect balance between speed and control in this addictive HTML5 racing game. Try it free now!">
+    <meta name="keywords" content="formula 1 driver game, 2D racing game, side-scrolling racing, physics-based racing game, online racing game, HTML5 racing game, F1 arcade game, free racing game 2025">
+    <title>Formula 1 Driver | Addictive 2D Racing Game With Physics Controls</title>
+    <link rel="stylesheet" href="/public/css/common.css?v=1.0.5">   
+    <!-- 添加Orbitron字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap">
+    <!-- 添加Eurostile字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/eurostile" >
+    <!-- 添加DS-Digital字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/ds-digital" >
+    <!-- 添加Digital-7字体 -->
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/digital-7" >  
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Formula 1 Driver",
+      "description": "A deceptively simple 2D racing game with physics-based controls requiring precision driving. Featuring side-scrolling action, animated spectators, and a strategic upgrade system.",
+      "genre": ["Racing Game", "Arcade Game", "Sports Game"],
+      "gamePlatform": ["Web Browser", "Mobile Browser", "iOS", "Android", "Windows", "macOS"],
+      "applicationCategory": "Game",
+      "operatingSystem": ["Windows", "macOS", "iOS", "Android", "Web Browser"],
+      "image": "https://www.playgamestop.com/images/Formula-1-Driver-xs.jpg",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "8.5",
+        "bestRating": "10",
+        "worstRating": "1",
+        "ratingCount": "124"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "GameRank"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "GameRank",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.playgamestop.com/logo.png"
+        }
+      }
+    }
+    </script>
+    <style>     
+
+        .game-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: 657px;          
+            border-radius: 10px;
+            background: rgba(5, 5, 15, 0.9); /* Darker background */
+            backdrop-filter: blur(5px);          
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);  
+            margin-bottom: 2rem;
+        }
+
+        .game-info {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .game-info h1 {
+            color: #00f3ff;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+            padding: 0.3em 0;
+        }
+        
+        .game-info h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.3), rgba(0, 243, 255, 0.9) 50%, rgba(0, 243, 255, 0.3) 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info h2, .game-info h3 {
+            color: #00f3ff;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+            font-family: 'Eurostile', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.5);
+        }
+
+        .game-info h4 {
+            color: #3498db;
+            margin: 1rem 0 0.6rem;
+            font-size: 1.1rem;
+        }
+
+        .game-info p, .game-info li {
+            color: #ffffff;
+            line-height: 1.8;
+        }
+
+        .game-description ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            list-style-type: disc;
+        }
+
+        .game-description li {
+            margin-bottom: 0.5rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .pro-tip {
+            background-color: #f8f9fa;
+            border-left: 4px solid #e74c3c;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .rating-box {
+          
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border: 1px solid #eee;
+        }
+
+        .rating-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        .game-controls {
+            
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .game-controls ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .game-controls li {
+            margin: 0.5rem 0;
+        }
+
+        .back-to-home {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: rgba(0, 26, 51, 0.8);
+            color: #00f3ff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            position: relative;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.2);
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
+            overflow: hidden;
+        }
+
+        .back-to-home:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .back-to-home:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 38, 77, 0.9);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5), inset 0 0 15px rgba(0, 243, 255, 0.4);
+            border-color: rgba(0, 243, 255, 0.8);
+        }
+        
+        .back-to-home:hover:before {
+            left: 100%;
+        }
+       
+        .share-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 1rem 0;
+            padding: 0 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .share-btn.facebook {
+            background-color: #1877f2;
+        }
+
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .share-btn.linkedin {
+            background-color: #0077b5;
+        }
+
+        .share-btn.pinterest {
+            background-color: #e60023;
+        }
+
+        .share-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-component">
+        <header>
+            <div class="logo-container">                
+                <div class="logo-glow"></div>
+                <h1 class="site-title">GameRank</h1>
+                <div class="subtitle">Best Racing Games</div>
+            </div>
+            <div class="menu-overlay"></div>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" id="nav-home" class="active menu-item">Home</a></li>
+                    <li><a href="#Controls" id="nav-popular" class="menu-item">Controls</a></li>
+                    <li><a href="#Features" id="nav-contact" class="menu-item">Features</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <div class="game-container">
+
+        <iframe id="game" src="https://www.onlinegames.io/games/2022/construct/133/formula-1-driver/index.html" class="game-iframe" allowfullscreen></iframe>
+        
+        <div class="share-container">
+            <div class="share-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.playgamestop.com/games/formula-1-driver.html" target="_blank" class="share-btn facebook" title="Share on Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M9.198 21.5h4v-8.01h3.604l.396-3.98h-4V7.5a1 1 0 0 1 1-1h3v-4h-3a5 5 0 0 0-5 5v2.01h-2l-.396 3.98h2.396v8.01Z"/>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url=https://www.playgamestop.com/games/formula-1-driver.html&text=Check out Formula 1 Driver - An addictive physics-based racing game!" target="_blank" class="share-btn twitter" title="Share on Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://www.playgamestop.com/games/formula-1-driver.html&title=Formula 1 Driver - Addictive 2D Racing Game" target="_blank" class="share-btn linkedin" title="Share on LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M18.335 18.339H15.67v-4.177c0-.996-.02-2.278-1.39-2.278-1.389 0-1.601 1.084-1.601 2.205v4.25h-2.666V9.75h2.56v1.17h.035c.358-.674 1.228-1.387 2.528-1.387 2.7 0 3.2 1.778 3.2 4.091v4.715zM7.003 8.575a1.546 1.546 0 0 1-1.548-1.549 1.548 1.548 0 1 1 1.547 1.549zm1.336 9.764H5.666V9.75H8.34v8.589zM19.67 3H4.329C3.593 3 3 3.58 3 4.297v15.406C3 20.42 3.594 21 4.328 21h15.338C20.4 21 21 20.42 21 19.703V4.297C21 3.58 20.4 3 19.666 3h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=https://www.playgamestop.com/games/formula-1-driver.html&media=https://www.playgamestop.com/images/Formula-1-Driver-xs.jpg&description=Formula 1 Driver - A thrilling physics-based racing game!" target="_blank" class="share-btn pinterest" title="Share on Pinterest">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 0a12 12 0 0 0-3.8 23.1c-.1-1-.2-2.5.1-3.6.2-.8 1.3-5.2 1.3-5.2s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.8 0 1.2.6 1.2 1.4 0 .8-.5 2-1 3.1-.4 1.6.8 2.9 2.3 2.9 2.8 0 4.9-3 4.9-7.3 0-3.9-2.8-6.6-6.8-6.6-4.6 0-7.3 3.5-7.3 7.3 0 1.4.5 3 1.5 4 .2.2.2.3.1.6-.1.2-.3.8-.4 1-.1.4-.2.5-.4.4-1.6-.7-2.6-3-2.6-4.8 0-3.7 2.7-7.1 7.8-7.1 4.1 0 6.8 2.9 6.8 6.8 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.8-1.3 0 0-.6 2.3-.7 2.9-.3 1.1-1 2.5-1.5 3.4A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-6.6-5.4-12-12-12z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <h1>Formula 1 Driver</h1>
+            <div class="game-description">
+                <h2>Formula 1 Driver Review: A Deceptively Simple 2D Thrill Ride That Demands Precision</h2>
+
+                <p>As a seasoned gaming content creator who's tested everything from hyper-realistic simulators to arcade racers, I've learned to approach "simple" games with caution. ‌Formula 1 Driver‌—a minimalist 2D driving title—seems unassuming at first glance, but don't let its pixel-art aesthetic fool you. This game delivers white-knuckle tension that'll have even veteran players white-knuckling their controllers. Let's break down why this indie gem deserves a spot on your radar.</p>
+                
+                <h3>Concept: High Stakes in a Low-Poly World‌</h3>
+                
+                <p>Imagine the pressure of an F1 Grand Prix condensed into a side-scrolling frenzy. You're not just racing against the clock; ‌you're performing for a crowd‌ rendered as a sea of animated stick-figure spectators. Their cartoonish eyes follow your every move, creating an oddly immersive "stage fright" effect. The objective? Survive treacherous terrain, hoard every shimmering coin, and cross the finish line without capsizing your vehicle—a challenge that sounds easier than it plays.</p>
+                
+                <p>This isn't your standard racing sim. Formula 1 Driver leans into ‌arcade-style chaos‌ with physics that punish reckless acceleration. One mistimed jump or overzealous turn, and your car becomes a flipping liability. It's Trials HD meets Hill Climb Racing, but with F1's signature speed ego-check.</p>
+                
+                <h3>Gameplay Breakdown: Precision Over Pedal-to-Metal‌</h3>
+                <h4>Controls (Where the Devil Lives)‌</h4>
+                <ul>
+                    <li><strong>Tilt Mechanics‌:</strong> Master the art of balancing throttle and tilt. Tap too aggressively on inclines, and you'll catapult into a backflip of shame.</li>
+                    <li><strong>Coin Strategy‌:</strong> Those glittering tokens aren't just collectibles—they're lifelines. Miss too many, and you'll lack credits for vehicle upgrades critical to later stages.</li>
+                    <li><strong>Environmental Hazards‌:</strong> From sudden ramps to collapsing bridges, the track morphs into an obstacle course designed to test your reflexes.</li>
+                </ul>
+                
+                <p class="pro-tip"><strong>Pro Tip:</strong> Treat acceleration like a dimmer switch, not an on/off button. Momentum is your ally; panic is your enemy.</p>
+                
+                <h3>Why It Stands Out in the Racing Genre‌</h3>
+                
+                <p>While AAA titles obsess over 4K car models, Formula 1 Driver's charm lies in its ‌risk-reward tension‌. The game's simplicity becomes its strength:</p>
+                
+                <ul>
+                    <li><strong>Accessible But Deep‌:</strong> Easy to pick up, brutal to master. Perfect for quick sessions or obsessive high-score chases.</li>
+                    <li><strong>Spectator Dynamics‌:</strong> The crowd's reactions aren't just cosmetic—they amplify the pressure. Crash spectacularly, and watch them collectively facepalm.</li>
+                    <li><strong>Upgrade System‌:</strong> Use coins to unlock stability mods, turbo boosts, and shock absorbers. Each upgrade subtly shifts gameplay physics, demanding re-calibration of skills.</li>
+                </ul>
+                
+                <h3>Room for Improvement‌</h3>
+                
+                <p>No game is flawless. The current version lacks:</p>
+                
+                <ul>
+                    <li><strong>Multiplayer Mode‌:</strong> Ghost races or split-screen duels could elevate competition.</li>
+                    <li><strong>Customization‌:</strong> Let us repaint the car or design absurd spoilers!</li>
+                    <li><strong>Dynamic Weather‌:</strong> Rain-slicked tracks or sandstorms would add fresh chaos.</li>
+                </ul>
+                
+                <p>Indie devs, if you're reading this—take notes!</p>
+                
+                <h3>Final Verdict: A Must-Try for Arcade Purists‌</h3>
+                
+                <p>Formula 1 Driver is a masterclass in ‌"easy to learn, hard to put down"‌ design. It won't satisfy simulation junkies craving authentic gear ratios, but for players craving adrenaline-drenched arcade action? It's a podium finisher.</p>
+                
+                <div class="rating-box">
+                    <p><strong>Rating‌:</strong> 8.5/10 – A bite-sized adrenaline shot with surprising depth.</p>
+                    
+                    <p><strong>Platforms‌:</strong> iOS, Android, Steam (Windows/macOS)<br>
+                    <strong>Price‌:</strong> Free</p>
+                </div>
+                
+                <p>Ready to embarrass yourself in front of a crowd of low-poly judges? Download it, curse at your screen, then come back here and tell me how many flips you survived. 🏎️💨</p>
+                
+                <p>Drop your high scores below—let's see who's got the nerves (and brakes) of steel!</p>
+            </div>
+
+            <h2 id="Features">Game Features</h2>
+            <ul>
+                <li><strong>2D Side-Scrolling Racing:</strong> Minimalist pixel-art aesthetic with intense gameplay</li>
+                <li><strong>Physics-Based Controls:</strong> Master the delicate balance of throttle and tilt mechanics</li>
+                <li><strong>Animated Spectator Crowd:</strong> Reactive audience that responds to your performance</li>
+                <li><strong>Challenging Terrain:</strong> Navigate through treacherous tracks with ramps and collapsing bridges</li>
+                <li><strong>Strategic Coin Collection:</strong> Gather tokens to unlock vital vehicle upgrades</li>
+                <li><strong>Upgrade System:</strong> Enhance your vehicle with stability mods, turbo boosts, and shock absorbers</li>
+                <li><strong>Risk-Reward Gameplay:</strong> Find the perfect balance between speed and control</li>
+                <li><strong>Precision-Based Mechanics:</strong> Easy to learn but challenging to master</li>
+            </ul>
+
+            <h2>How to Play</h2>
+            <div class="game-controls" id="Controls">
+                <h3>Controls:</h3>
+                <ul>
+                    <li>Up Arrow: Accelerate</li>
+                    <li>Down Arrow: Brake/Reverse</li>
+                    <li>Left/Right Arrows: Adjust vehicle balance</li>
+                    <li>Spacebar: Special ability (if available)</li>
+                </ul>
+            </div>
+
+            <h2>Game Objectives</h2>
+            <p>Navigate your F1 vehicle through challenging side-scrolling tracks while maintaining balance and collecting coins. Cross the finish line without flipping over, and use collected coins to purchase vehicle upgrades that enhance performance. Progress through increasingly difficult tracks that test your precision driving skills, with the ultimate goal of achieving the fastest times and highest scores possible.</p>
+
+            <h2>Game Tips</h2>
+            <ul>
+                <li>Treat acceleration like a dimmer switch, not an on/off button - gradual control is key</li>
+                <li>Master the balance between speed and control, especially when approaching ramps</li>
+                <li>Collect as many coins as possible to unlock crucial vehicle upgrades</li>
+                <li>Pay attention to the terrain ahead and adjust your approach accordingly</li>
+                <li>When encountering steep inclines, avoid tapping too aggressively to prevent backflips</li>
+                <li>Use vehicle upgrades strategically based on your play style and the track challenges</li>
+            </ul>
+
+            <a href="../index.html" class="back-to-home">« Return to Main Hub</a>
+        </div>
+    </div>
+</body>
+<a href="#" id="go-top" class="go-top-btn" title="Back to Top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z"/>
+        <path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z" fill="currentColor"/>
+    </svg>
+</a>
+<script language="javascript" type="text/javascript" src="/public/js/menu.js?v=1.0.1"></script>
+<script>
+    function resizeGameFrame() {
+        const gameFrame = document.getElementById('game');
+        if (gameFrame) {
+            // 设置高度为宽度的 1/2.2
+            const width = gameFrame.offsetWidth;
+            const height = width / 1.75;
+            gameFrame.style.height = height + 'px';
+        }
+    }
+
+    // 初始加载和窗口大小变化时调整尺寸
+    window.addEventListener('load', resizeGameFrame);
+    window.addEventListener('resize', resizeGameFrame);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const goTopBtn = document.getElementById('go-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                goTopBtn.classList.add('visible');
+            } else {
+                goTopBtn.classList.remove('visible');
+            }
+        });
+        
+        goTopBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</html> 
